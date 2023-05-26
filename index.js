@@ -194,8 +194,9 @@ function profilListesi(feno) {
   /*kod*/
   const yeniFeno =[...feno];
   for(let i in yeniFeno){
-    yeniFeno.push(feno[i].profile);
-    yeniFeno.shift();
+    yeniFeno[i] =yeniFeno[i].profile;
+    //yeniFeno.push(feno[i].profile);
+    //yeniFeno.shift();
   }
   return yeniFeno;
 }
@@ -250,6 +251,7 @@ function fenomenEkle(feno,sirano,isim,takipciSay,gonderimSay,platformAd) {
     "posts": gonderimSay,
     "platform": platformAd
   };
+  //const ekleFeno = [...feno,yeniEkle]; // buda push gibi ekleme işlemi yapabiliyor.
   ekleFeno.push(yeniEkle);
   return ekleFeno;
 
@@ -269,12 +271,13 @@ function enFenomenler(feno) {
   const isimler =[];
   for (let i in feno){
     if(feno[i].followers>100000000){
-      isimler.push(feno[i].profile);
+      //isimler.push(feno[i].profile);
+      isimler.push(feno[i]["profile"]);
     }
   }
   return isimler;
 }
-console.log(enFenomenler(fenomenler));
+console.log("en fenomenler :",enFenomenler(fenomenler));
 
 /* Görev 8:
 Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
@@ -287,6 +290,7 @@ Aşağıdakileri yapmak için fenomenGonderimSayisi'nı kullanın:
 
 function fenomenGonderimSayisi(feno,profilAdi) {
   /*kod*/
+  
   for (let i in feno ){
     if(feno[i].profile === profilAdi){
       return feno[i].posts;
@@ -313,7 +317,7 @@ function platformaGoreCokGonderiYapanFenomen(feno,platformAdi) {
   let enFazla = 0;
   let yeri = 0;
   for (let i in feno ){
-    if(feno[i].platform === platformAdi && enFazla<feno[i].posts){
+    if(feno[i].platform === platformAdi && enFazla < feno[i].posts){
         enFazla = feno[i].posts;
         yeri = i;
     }
